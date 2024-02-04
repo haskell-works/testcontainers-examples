@@ -1,0 +1,57 @@
+cabal-version:      3.4
+
+name:               testcontainers-examples
+version:            0.1.0.0
+description:        Test containers examples
+author:             John Ky
+maintainer:         newhoggy@gmail.com
+build-type:         Simple
+
+common base            { build-depends: base >= 4.14 && < 5 }
+
+common project-config
+  default-language:     Haskell2010
+
+  default-extensions:   NoImplicitPrelude
+                        OverloadedStrings
+
+  ghc-options:          -Wall
+                        -Werror
+                        -Wcompat
+                        -Wincomplete-record-updates
+                        -Wincomplete-uni-patterns
+                        -Wno-unticked-promoted-constructors
+                        -Wpartial-fields
+                        -Wredundant-constraints
+                        -Wunused-packages
+
+test-suite testcontainers-examples-test-integration
+  import:               base, project-config
+  hs-source-dirs:       test/integration
+  main-is:              test-integration.hs
+  type:                 exitcode-stdio-1.0
+
+  other-modules:        Test.Integration.TestContainers.Containers
+                        Test.Integration.TestContainers.Hasql
+
+  build-depends:      , base >=4.12 && <5
+                      , bytestring
+                      , hasql
+                      , hedgehog
+                      , hedgehog-extras
+                      , monad-control
+                      , monad-logger
+                      , mtl
+                      , split
+                      , tasty
+                      , tasty-discover
+                      , tasty-hedgehog
+                      , tasty-hunit
+                      , testcontainers
+                      , text
+                      , transformers
+                      , transformers-base
+
+  build-tool-depends:   tasty-discover:tasty-discover
+
+  ghc-options:          -threaded -rtsopts -with-rtsopts=-N -with-rtsopts=-T -Wno-unused-packages
